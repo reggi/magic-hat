@@ -1,5 +1,5 @@
 {
-  "name": "magic-hat",
+  "name": "magichat",
   "version": "0.0.1",
   "main": "lib/magic-hat.js",
   "dependencies": {
