@@ -16,6 +16,8 @@ With Magic Hat this becomes:
 app.get('/', magicHat.send('hello world'))
 ```
 
+## The Req variable
+
 The thing that makes middleware pretty hard to work with is that it's all asynchronous, which makes managing control flow difficult. The `req` variable is used in many pieces of middleware to store custom data as well as information about the current request.
 
 This example serves the value of `?user=reggi`, we know it's stored in `req.query.user`.
@@ -33,13 +35,53 @@ How can we do something like this with Magic Hat? Surely we can't do this, becau
 app.get('/', magicHat.send(req.query.user))
 ```
 
-I create a `Req` object that accesses the scoped property of `req` from outside the callback. To use it do something like this:
+I created a `Req` object that accesses the scoped property of `req` from outside the callback. To use it do something like this:
 
 ```js
 app.get('/', magicHat.send(Req('query.user')))
 ```
 
-Perhaps you can start to see the power of this, or not. Magic Hat is loaded with other features that attempt at allowing you to write smaller functions which you can surround with controll flow goodness.
+Perhaps you can start to see the power of this, or not. Magic Hat is loaded with other features that attempt at allowing you to write smaller functions which you can surround with control flow goodness.
+
+## Conditionals
+
+One major use case for Magic Hat is conditionals. Take the case where we'd like to serve a string specifically if the user query is `github`.
+
+```js
+app.get('/', magicHat()
+  .ifEqual(Req('query.user'), 'github', magicHat.send('BOO'))
+  .send(Req('query.user'))
+  .assemble()
+)
+```
+
+Or serve an error:
+
+```js
+app.get('/', magicHat()
+  .ifEqual(Req('query.user'), 'github', magicHat.next(new Error('invalid user')))
+  .send(Req('query.user'))
+  .assemble())
+)
+```
+
+## Writing Real Functions
+
+With Magic Hat you can write normal functions and pass them around with Magic Hat using `.exe()`.
+
+```js
+function greet (user) {
+  return "Hello " + user + "!"
+}
+app.get('/', magicHat()
+  .if(Req('query.user'), magicHat())
+    .exe('greetUser', greet, Req('query.user'))
+    .send(Req('greetUser'))
+    .assemble())
+  .send('Hi Person!')
+  .assemble())
+)
+```
 
 ## Chain Middleware
 
