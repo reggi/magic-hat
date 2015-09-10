@@ -41,6 +41,8 @@ I created a `Req` object that accesses the scoped property of `req` from outside
 app.get('/', magicHat.send(Req('query.user')))
 ```
 
+The concept of the `Req` variable is where Magic Hat gets it's name, because it's like pulling a rabbit out of a hat.
+
 Perhaps you can start to see the power of this, or not. Magic Hat is loaded with other features that attempt at allowing you to write smaller functions which you can surround with control flow goodness.
 
 ## Conditionals
@@ -71,7 +73,7 @@ With Magic Hat you can write normal functions and pass them around with Magic Ha
 
 ```js
 function greet (user) {
-  return "Hello " + user + "!"
+  return 'Hello ' + user + '!'
 }
 app.get('/', magicHat()
   .if(Req('query.user'), magicHat())
