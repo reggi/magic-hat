@@ -1,0 +1,13 @@
+{
+  "name": "magic-hat",
+  "version": "0.0.1",
+  "main": "lib/magic-hat.js",
+  "dependencies": {
+    "bluebird": "^2.9.34",
+    "dotty": "0.0.2",
+    "express": "^4.13.3",
+    "express-promise-router": "0.0.9",
+    "lodash": "^3.10.1",
+    "underscore.string": "^3.2.0"
+  }
+}
