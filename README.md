@@ -67,7 +67,7 @@ app.get('/', magicHat()
 
 ## Writing Real Functions
 
-With Magic Hat you can write normal functions and pass them around with Magic Hat using `.exe()`.
+With Magic Hat you can write normal functions and pass them around with Magic Hat using `.exe()`. This way you can strip the real functionality out of your middleware flow.
 
 ```js
 function greet (user) {
